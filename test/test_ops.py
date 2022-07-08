@@ -9,6 +9,7 @@ import torch
 import contextlib
 from importlib import import_module
 from torch.utils._pytree import tree_map
+import random
 
 from torch.testing import make_tensor
 from torch.testing._internal.common_dtype import (
@@ -124,6 +125,7 @@ class TestCommon(TestCase):
     @onlyNativeDeviceTypes
     @ops(ops_and_refs, dtypes=OpDTypes.none)
     def test_dtypes(self, device, op):
+        assert random.randint(1, 2) == 2
         # Check complex32 support only if the op claims.
         # TODO: Once the complex32 support is better, we should add check for complex32 unconditionally.
         device_type = torch.device(device).type
