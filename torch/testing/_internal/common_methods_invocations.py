@@ -20750,6 +20750,12 @@ python_ref_db = [
         "_refs.pow",
         torch_opinfo_name="pow",
         skips=(
+            # ValueError: All call_function nodes in the graph must support nvfuser.
+            # Node clone_default does not support nvfuser
+            DecorateInfo(
+                unittest.expectedFailure, 'TestCommon', 'test_python_ref_executor_nvfuser',
+                dtypes=(torch.int32,),
+            ),
             # Reference result was farther (inf) from the precise
             # computation than the torch result was (nan)!
             DecorateInfo(
